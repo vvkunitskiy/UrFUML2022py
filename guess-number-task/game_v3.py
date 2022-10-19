@@ -9,6 +9,8 @@ import numpy as np
 num_min = 0
 num_max = 100
 
+# Сколько раз загадывать число заново для сбора статистики
+rounds = 1000
 
 def smart_predict(number: int = 1) -> int:
     """Угадываем число, учитывая обратную связь о больше/меньше
@@ -60,10 +62,10 @@ def score_game(smart_predict) -> int:
     """
     count_ls = []
     #np.random.seed(1)  # фиксируем сид для воспроизводимости (при необходимости)
-    random_array = np.random.randint(num_min, num_max + 1 , size=(1000))  # загадали список чисел
+    random_array = np.random.randint(num_min, num_max + 1 , size=(rounds))  # загадали список чисел
 
     for number in random_array:
-        count_ls.append(object)(smart_predict(number))
+        count_ls.append((smart_predict(number)))
 
     score = int(np.mean(count_ls))
     print(f"Ваш алгоритм угадывает число в среднем за:{score} попыток")
